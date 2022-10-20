@@ -1,0 +1,46 @@
+is-user-exist:
+  handler: ${self:custom.paths.cognito}/handler.isUserExistHandler
+create-user:
+  handler: ${self:custom.paths.cognito}/handler.createUserHandler
+cognito-login-passwordless:
+  handler: ${self:custom.paths.cognito}/handler.loginPasswordlessHandler
+
+refresh-token:
+  handler: ${self:custom.paths.cognito}/handler.refreshTokenHandler
+  events:
+    - http:
+        path: auth/refreshToken
+        method: POST
+        cors: true
+
+# cognito lambda Triggers
+defineAuthChallenge:
+  handler: ${self:custom.paths.cognito}/handler.defineAuthChallengeHandler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.variables.userPoolName}
+        trigger: DefineAuthChallenge
+        existing: true
+createAuthChallenge:
+  handler: ${self:custom.paths.cognito}/handler.createAuthChallengeHandler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.variables.userPoolName}
+        trigger: CreateAuthChallenge
+        existing: true
+verifyAuthChallengeResponse:
+  handler: ${self:custom.paths.cognito}/handler.verifyAuthChallengeResponseHandler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.variables.userPoolName}
+        trigger: VerifyAuthChallengeResponse
+        existing: true
+preSignUpTrigger:
+  handler: ${self:custom.paths.cognito}/handler.preSignUpTriggerHandler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.variables.userPoolName}
+        trigger: PreSignUp
+        existing: true
+authorizer:
+  handler: ${self:custom.paths.cognito}/handler.authorizerHandler

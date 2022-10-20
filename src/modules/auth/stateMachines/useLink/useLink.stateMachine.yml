@@ -1,0 +1,49 @@
+name: testUseLink
+type: EXPRESS
+events:
+  - http:
+      path: magic-link/use
+      method: POST
+      action: StartSyncExecution
+      cors: true
+      request:
+        template: lambda_proxy
+      response:
+        template:
+          application/json: |
+            {
+              "body" : $input.json('$.output')
+            }
+definition:
+  Comment: 'Allows login via magic link'
+  StartAt: buildInputData
+  States:
+    buildInputData:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [use-link-build-input-data, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: catchAllFallback
+      Next: loginPasswordless
+    loginPasswordless:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [cognito-login-passwordless, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: catchAllFallback
+      Next: buildOutputData
+    buildOutputData:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [use-link-build-output-data, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: catchAllFallback
+      End: true
+    catchAllFallback:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [catch-all-fallback, Arn]
+      End: true

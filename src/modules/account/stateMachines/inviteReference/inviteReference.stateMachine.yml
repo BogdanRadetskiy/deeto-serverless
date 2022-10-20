@@ -1,0 +1,44 @@
+name: InviteReferenceMachine
+type: EXPRESS
+events:
+  - http:
+      path: reference/invite
+      method: POST
+      action: StartSyncExecution
+      cors: true
+      authorizer:
+        name: authorizer
+        resultTtlInSeconds: 0
+        identitySource: method.request.header.authorizationToken
+        type: token
+      request:
+        template: lambda_proxy
+      response:
+        template:
+          application/json: |
+            $input.json('$.output')
+definition:
+  Comment: 'Invite new reference'
+  StartAt: inviteReference
+  States:
+    inviteReference:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [inviteReferenceState, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: catchAllFallback
+      Next: sendReferenceInvitationEmail
+    sendReferenceInvitationEmail:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [send-reference-invitation-email, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: catchAllFallback
+      End: true
+    catchAllFallback:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [catch-all-fallback, Arn]
+      End: true

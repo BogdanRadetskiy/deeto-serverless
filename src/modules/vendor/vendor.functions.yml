@@ -1,0 +1,148 @@
+calculateRecommendedReferences:
+  handler: ${self:custom.paths.vendor}/handler.calculateRecommendedReferencesHandler
+  events:
+    - http:
+        path: vendor/calculateRecommendedReference
+        method: POST
+        cors:
+          origin: '*' # <-- Specify allowed origin
+          headers: # <-- Specify allowed headers
+            - authorizationToken
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+getVendorById:
+  handler: ${self:custom.paths.vendor}/handler.getByIdHandler
+  events:
+    - http:
+        path: vendor/{vendorId}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getVendorReferences:
+  handler: ${self:custom.paths.vendor}/handler.getReferencesHandler
+  events:
+    - http:
+        path: contacts/search/reference
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+vendor-grant-vendor:
+  handler: ${self:custom.paths.vendor}/handler.grantVendorHandler
+vendor-get-accountContacts:
+  handler: ${self:custom.paths.vendor}/handler.getAccountContactsHandler
+getVendorContactsById:
+  handler: src/modules/vendor/handler.getVendorsVendorIdContactsHandler
+  events:
+    - http:
+        path: vendors/{vendorID}/contacts
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postVendorContactsById:
+  handler: src/modules/vendor/handler.postVendorsVendorIdContactsHandler
+  events:
+    - http:
+        path: vendors/{vendorID}/contacts
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAllVendors:
+  handler: src/modules/vendor/handler.getVendorsHandler
+  events:
+    - http:
+        path: vendors
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+post-vendors:
+  handler: src/modules/vendor/handler.postVendorsHandler
+  events:
+    - http:
+        path: vendors
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchVendorById:
+  handler: src/modules/vendor/handler.patchVendorsVendorIdHandler
+  events:
+    - http:
+        path: vendors/{vendorID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteVendorById:
+  handler: src/modules/vendor/handler.deleteVendorsVendorIdHandler
+  events:
+    - http:
+        path: vendors/{vendorID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-vendors-vendor-id-activate:
+  handler: src/modules/vendor/handler.patchVendorsVendorIdActivateHandler
+  events:
+    - http:
+        path: vendors/{vendorID}/activate
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getVendorMeetingCreditById:
+  handler: src/modules/vendor/handler.getVendorsVendorIdMeetingcreditHandler
+  events:
+    - http:
+        path: vendors/{vendorID}/meetingCredit
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

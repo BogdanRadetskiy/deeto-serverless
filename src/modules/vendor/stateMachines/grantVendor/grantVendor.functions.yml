@@ -1,0 +1,4 @@
+grant-vendor-build-input-data:
+  handler: ${self:custom.paths.vendor}/stateMachines/grantVendor/handler.grantVendorBuildInputData
+grant-vendor-build-output-data:
+  handler: ${self:custom.paths.vendor}/stateMachines/grantVendor/handler.grantVendorBuildOutputData

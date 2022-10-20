@@ -1,0 +1,52 @@
+name: grantVendor
+type: EXPRESS
+events:
+  - http:
+      path: vendor/grantVendor
+      method: POST
+      action: StartSyncExecution
+      cors: true
+      authorizer:
+        name: authorizer
+        resultTtlInSeconds: 0
+        identitySource: method.request.header.authorizationToken
+        type: token
+      request:
+        template: lambda_proxy
+      response:
+        template:
+          application/json: |
+            $input.json('$.output')
+definition:
+  Comment: 'Invite new prospect'
+  StartAt: buildInputData
+  States:
+    buildInputData:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [grant-vendor-build-input-data, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: CatchAllFallback
+      Next: grantVendor
+    grantVendor:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [vendor-grant-vendor, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: CatchAllFallback
+      Next: buildOutputData
+    buildOutputData:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [grant-vendor-build-output-data, Arn]
+      Catch:
+        - ErrorEquals: ['States.ALL']
+          Next: CatchAllFallback
+      End: true
+    CatchAllFallback:
+      Type: Task
+      Resource:
+        Fn::GetAtt: [catch-all-fallback, Arn]
+      End: true

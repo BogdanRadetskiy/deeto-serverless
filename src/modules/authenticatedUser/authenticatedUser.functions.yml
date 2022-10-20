@@ -1,0 +1,74 @@
+createAuthenticatedUserWithCognito:
+  handler: ${self:custom.paths.authenticatedUser}/handler.createAuthenticatedUserWithCognitoHandler
+getAuthenticatedUser:
+  handler: src/modules/authenticatedUser/handler.getAuthenticatedUserHandler
+  events:
+    - http:
+        path: authenticatedUser
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAuthenticatedUserById:
+  handler: src/modules/authenticatedUser/handler.getAuthenticateduserAuthenticateduserIdHandler
+  events:
+    - http:
+        path: authenticatedUser/{authenticatedUserID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchAuthenticatedUserById:
+  handler: src/modules/authenticatedUser/handler.patchAuthenticateduserAuthenticateduserIdHandler
+  events:
+    - http:
+        path: authenticatedUser/{authenticatedUserID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchAuthenticatedUserChangeUserStatus:
+  handler: src/modules/authenticatedUser/handler.patchAuthenticateduserAuthenticateduserIdChangeuserstatusUserstatusHandler
+  events:
+    - http:
+        path: authenticatedUser/{authenticatedUserID}/changeUserStatus/{userStatus}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAuthenticatedUserGuiSettings:
+  handler: src/modules/authenticatedUser/handler.getAuthenticateduserAuthenticateduserIdGuisettingsHandler
+  events:
+    - http:
+        path: authenticatedUser/{authenticatedUserID}/guiSettings
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchAuthenticatedUserGuiSettings:
+  handler: src/modules/authenticatedUser/handler.patchAuthenticateduserAuthenticateduserIdGuisettingsHandler
+  events:
+    - http:
+        path: authenticatedUser/{authenticatedUserID}/guiSettings
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

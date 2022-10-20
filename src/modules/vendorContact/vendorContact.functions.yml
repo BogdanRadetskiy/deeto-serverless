@@ -1,0 +1,60 @@
+createVendorContact:
+  handler: src/modules/vendorContact/handler.createVendorContactHandler
+  events:
+    - http:
+        path: vendor/{vendorId}/contacts
+        method: POST
+getVendorContactById:
+  handler: src/modules/vendorContact/handler.getVendorContactByIdHandler
+  events:
+    - http:
+        path: vendor/{vendorId}/contacts/{contactId}
+        method: GET
+getVendorContacts:
+  handler: src/modules/vendorContact/handler.getVendorcontactsHandler
+  events:
+    - http:
+        path: vendorContacts
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchVendorContactsById:
+  handler: src/modules/vendorContact/handler.patchVendorcontactsVendorcontactIdHandler
+  events:
+    - http:
+        path: vendorContacts/{vendorContactID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteVendorContactsById:
+  handler: src/modules/vendorContact/handler.deleteVendorcontactsVendorcontactIdHandler
+  events:
+    - http:
+        path: vendorContacts/{vendorContactID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchVendorContactsActivateById:
+  handler: src/modules/vendorContact/handler.patchVendorcontactsVendorcontactIdActivateHandler
+  events:
+    - http:
+        path: vendorContacts/{vendorContactID}/activate
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

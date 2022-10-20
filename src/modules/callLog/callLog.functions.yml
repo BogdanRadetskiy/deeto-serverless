@@ -1,0 +1,36 @@
+get-callLog-callLog-id:
+  handler: src/modules/callLog/handler.getCalllogCalllogIdHandler
+  events:
+    - http:
+        path: callLog/{callLogID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-callLog-callLog-id:
+  handler: src/modules/callLog/handler.patchCalllogCalllogIdHandler
+  events:
+    - http:
+        path: callLog/{callLogID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+delete-callLog-callLog-id:
+  handler: src/modules/callLog/handler.deleteCalllogCalllogIdHandler
+  events:
+    - http:
+        path: callLog/{callLogID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

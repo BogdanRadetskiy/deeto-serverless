@@ -1,0 +1,36 @@
+get-redemptions-redemption-id:
+  handler: src/modules/redemption/handler.getRedemptionsRedemptionIdHandler
+  events:
+    - http:
+        path: redemptions/{redemptionID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-redemptions-redemption-id:
+  handler: src/modules/redemption/handler.patchRedemptionsRedemptionIdHandler
+  events:
+    - http:
+        path: redemptions/{redemptionID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+delete-redemptions-redemption-id:
+  handler: src/modules/redemption/handler.deleteRedemptionsRedemptionIdHandler
+  events:
+    - http:
+        path: redemptions/{redemptionID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

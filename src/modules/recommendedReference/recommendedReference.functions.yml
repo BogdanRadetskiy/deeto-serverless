@@ -1,0 +1,36 @@
+postRecommendedReferencesCreateMeetingById:
+  handler: src/modules/recommendedReference/handler.postRecommendedreferencesRecommendedreferenceIdCreatemeetingHandler
+  events:
+    - http:
+        path: recommendedReferences/{recommendedReferenceID}/createMeeting
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getRecommendedReferencesMeetingById:
+  handler: src/modules/recommendedReference/handler.getRecommendedreferencesRecommendedreferenceIdMeetingHandler
+  events:
+    - http:
+        path: recommendedReferences/{recommendedReferenceID}/meeting
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postRecommendedReferencesRedemptionsById:
+  handler: src/modules/recommendedReference/handler.postRecommendedreferencesRecommendedreferenceIdRedemptionsHandler
+  events:
+    - http:
+        path: recommendedReferences/{recommendedReferenceID}/redemptions
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

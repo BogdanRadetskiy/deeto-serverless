@@ -1,0 +1,2 @@
+generate-link:
+  handler: src/modules/magicLink/handler.generateLinkHandler

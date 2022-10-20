@@ -1,0 +1,17 @@
+type: object
+properties:
+  code:
+    type: number
+  message:
+    type: string
+  data:
+    type: object
+    properties:
+      vendorId:
+        type: string
+      name:
+        type: string
+      updatedAt:
+        type: string
+      createdAt:
+        type: string

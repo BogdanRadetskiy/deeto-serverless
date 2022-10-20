@@ -1,0 +1,204 @@
+createAccountContact:
+  handler: src/modules/accountContact/handler.createAccountContactHandler
+  events:
+    - http:
+        path: accountContact
+        method: POST
+deleteAccountContact:
+  handler: src/modules/accountContact/handler.deleteAccountContactHandler
+  events:
+    - http:
+        path: accountContact
+        method: DELETE
+getAccountContact:
+  handler: src/modules/accountContact/handler.getAccountcontactHandler
+  events:
+    - http:
+        path: accountContact
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactPrivilege:
+  handler: src/modules/accountContact/handler.getAccountcontactSearchPrivilegeHandler
+  events:
+    - http:
+        path: accountContact/search/{privilege}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postAccountContactPrivilege:
+  handler: src/modules/accountContact/handler.postAccountcontactSearchPrivilegeHandler
+  events:
+    - http:
+        path: accountContact/search/{privilege}
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdHandler
+  events:
+    - http:
+        path: accountContact/{contactID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchAccountContactById:
+  handler: src/modules/accountContact/handler.patchAccountcontactContactIdHandler
+  events:
+    - http:
+        path: accountContact/{contactID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteAccountContactById:
+  handler: src/modules/accountContact/handler.deleteAccountcontactContactIdHandler
+  events:
+    - http:
+        path: accountContact/{contactID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchActivateAccountContactById:
+  handler: src/modules/accountContact/handler.patchAccountcontactContactIdActivateHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/activate
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactInfoTabsById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdInfotabsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/infoTabs
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postAccountContactInfoTabsById:
+  handler: src/modules/accountContact/handler.postAccountcontactContactIdInfotabsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/infoTabs
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactOpportunityById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdOpportunitiesHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/opportunities
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactMeetingsById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdMeetingsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/meetings
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactFeedbackById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdFeedbackHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/feedback
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactRedemptionsById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdRedemptionsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/redemptions
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postAccountContactRedemptionsById:
+  handler: src/modules/accountContact/handler.postAccountcontactContactIdRedemptionsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/redemptions
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getAccountContactStatisticsById:
+  handler: src/modules/accountContact/handler.getAccountcontactContactIdStatisticsHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/statistics
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postFakeAccountContactStatistic:
+  handler: src/modules/accountContact/handler.postAccountcontactContactIdStatisticsFakeHandler
+  events:
+    - http:
+        path: accountContact/{contactID}/statistics/fake
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

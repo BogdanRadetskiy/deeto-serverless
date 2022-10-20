@@ -1,0 +1,2 @@
+catch-all-fallback:
+  handler: src/shared/lambdas/handler.catchAllFallbackHandler

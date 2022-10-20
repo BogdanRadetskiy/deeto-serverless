@@ -1,0 +1,144 @@
+postCreateOpportunity:
+  handler: src/modules/opportunity/handler.createOpportunityHandler
+  events:
+    - http:
+        path: opportunity
+        method: POST
+getOpportunityById:
+  handler: src/modules/opportunity/handler.getOpportunityByIdHandler
+  events:
+    - http:
+        path: opportunity
+        method: GET
+deleteOpportunity:
+  handler: src/modules/opportunity/handler.deleteOpportunityHandler
+  events:
+    - http:
+        path: opportunity
+        method: DELETE
+updateOpportunity:
+  handler: src/modules/opportunity/handler.updateOpportunityHandler
+  events:
+    - http:
+        path: opportunity
+        method: PATCH
+getOpportunities:
+  handler: src/modules/opportunity/handler.getOpportunitiesHandler
+  events:
+    - http:
+        path: opportunities
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postOpportunities:
+  handler: src/modules/opportunity/handler.postOpportunitiesHandler
+  events:
+    - http:
+        path: opportunities
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-opportunities-opportunity-id:
+  handler: src/modules/opportunity/handler.patchOpportunitiesOpportunityIdHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteOpportunityById:
+  handler: src/modules/opportunity/handler.deleteOpportunitiesOpportunityIdHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getOpportunityRecommendedReferences:
+  handler: src/modules/opportunity/handler.getOpportunitiesOpportunityIdRecommendedreferencesHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/recommendedReferences
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchOpportunityRecommendedReferencesById:
+  handler: src/modules/opportunity/handler.patchOpportunitiesOpportunityIdRecommendedreferencesHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/recommendedReferences
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getOpportunitySelectedReferences:
+  handler: src/modules/opportunity/handler.getOpportunitiesOpportunityIdSelectedreferencesHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/selectedReferences
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getOpportunityEmailActivity:
+  handler: src/modules/opportunity/handler.getOpportunitiesOpportunityIdEmailactivityHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/emailActivity
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postOpportunityEmailActivity:
+  handler: src/modules/opportunity/handler.postOpportunitiesOpportunityIdEmailactivityHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/emailActivity
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postOpportunityMeetings:
+  handler: src/modules/opportunity/handler.postOpportunitiesOpportunityIdMeetingsHandler
+  events:
+    - http:
+        path: opportunities/{opportunityID}/meetings
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

@@ -1,0 +1,93 @@
+inviteReferenceState:
+  handler: ${self:custom.paths.account}/handler.inviteReferenceHandler
+inviteProspectPreValidate:
+  handler: ${self:custom.paths.account}/handler.inviteProspectPreValidationHandler
+  events:
+    - http:
+        path: prospect/invite/preValidation
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+inviteProspect:
+  handler: ${self:custom.paths.account}/handler.inviteProspectHandler
+  events:
+    - http:
+        path: prospect/invite
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+getAccounts:
+  handler: src/modules/account/handler.getAccountsHandler
+  events:
+    - http:
+        path: accounts
+        method: GET
+        cors:
+          origin: '*' # <-- Specify allowed origin
+          headers: # <-- Specify allowed headers
+            - authorizationToken
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+get-accounts-account-id-contacts:
+  handler: src/modules/account/handler.getAccountContactsByIdHandler
+  events:
+    - http:
+        path: accounts/{accountId}/contacts
+        method: GET
+        cors:
+          origin: '*' # <-- Specify allowed origin
+          headers: # <-- Specify allowed headers
+            - authorizationToken
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+post-accounts-account-id-contacts-search:
+  handler: src/modules/account/handler.postAccountContactsByIdSearchHandler
+  events:
+    - http:
+        path: accounts/{accountId}/contacts/search
+        method: POST
+        cors:
+          origin: '*' # <-- Specify allowed origin
+          headers: # <-- Specify allowed headers
+            - authorizationToken
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

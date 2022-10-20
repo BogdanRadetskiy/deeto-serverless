@@ -1,0 +1,72 @@
+getScheduledTimeslotsById:
+  handler: src/modules/scheduledTimeslot/handler.getScheduledtimeslotsScheduledtimeslotIdHandler
+  events:
+    - http:
+        path: scheduledTimeslots/{scheduledTimeslotID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchScheduledTimeslotsById:
+  handler: src/modules/scheduledTimeslot/handler.patchScheduledtimeslotsScheduledtimeslotIdHandler
+  events:
+    - http:
+        path: scheduledTimeslots/{scheduledTimeslotID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteScheduledTimeslotsById:
+  handler: src/modules/scheduledTimeslot/handler.deleteScheduledtimeslotsScheduledtimeslotIdHandler
+  events:
+    - http:
+        path: scheduledTimeslots/{scheduledTimeslotID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postScheduledTimeslotsBlackoutDates:
+  handler: src/modules/scheduledTimeslot/handler.postScheduledtimeslotsBlackoutdatesHandler
+  events:
+    - http:
+        path: scheduledTimeslots/blackoutDates
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getScheduledTimeslotsBlackoutDates:
+  handler: src/modules/scheduledTimeslot/handler.getScheduledtimeslotsBlackoutdatesFromdateTodateHandler
+  events:
+    - http:
+        path: scheduledTimeslots/blackoutDates/{fromDate}/{toDate}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchScheduledTimeslotsMarkAsAcceptedById:
+  handler: src/modules/scheduledTimeslot/handler.patchScheduledtimeslotsScheduledtimeslotIdMarkasacceptedHandler
+  events:
+    - http:
+        path: scheduledTimeslots/{scheduledTimeslotID}/markAsAccepted
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

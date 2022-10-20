@@ -1,0 +1,60 @@
+getEmailActivity:
+  handler: src/modules/emailActivity/handler.getEmailactivityHandler
+  events:
+    - http:
+        path: emailActivity
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postEmailActivity:
+  handler: src/modules/emailActivity/handler.postEmailactivityHandler
+  events:
+    - http:
+        path: emailActivity
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getEmailActivityById:
+  handler: src/modules/emailActivity/handler.getEmailactivityEmailactivityIdHandler
+  events:
+    - http:
+        path: emailActivity/{emailActivityID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchEmailActivityById:
+  handler: src/modules/emailActivity/handler.patchEmailactivityEmailactivityIdHandler
+  events:
+    - http:
+        path: emailActivity/{emailActivityID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteEmailActivityById:
+  handler: src/modules/emailActivity/handler.deleteEmailactivityEmailactivityIdHandler
+  events:
+    - http:
+        path: emailActivity/{emailActivityID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

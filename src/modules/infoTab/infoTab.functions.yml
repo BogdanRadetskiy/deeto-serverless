@@ -1,0 +1,36 @@
+getInfoTabsById:
+  handler: src/modules/infoTab/handler.getInfotabsInfotabsIdHandler
+  events:
+    - http:
+        path: infoTabs/{infoTabsID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchInfoTabsById:
+  handler: src/modules/infoTab/handler.patchInfotabsInfotabsIdHandler
+  events:
+    - http:
+        path: infoTabs/{infoTabsID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteInfoTabsById:
+  handler: src/modules/infoTab/handler.deleteInfotabsInfotabsIdHandler
+  events:
+    - http:
+        path: infoTabs/{infoTabsID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

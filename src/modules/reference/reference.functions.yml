@@ -1,0 +1,12 @@
+postReferencesCreateWithContact:
+  handler: src/modules/reference/handler.postReferencesCreatewithcontactHandler
+  events:
+    - http:
+        path: references/createWithContact
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

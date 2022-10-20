@@ -1,0 +1,337 @@
+createMeeting:
+  handler: src/modules/meeting/handler.createMeetingHandler
+  events:
+    - http:
+        path: meeting
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+deleteMeeting:
+  handler: src/modules/meeting/handler.deleteMeetingHandler
+  events:
+    - http:
+        path: meeting
+        method: DELETE
+patchMeeting:
+  handler: src/modules/meeting/handler.updateMeetingHandler
+  events:
+    - http:
+        path: meeting
+        method: PATCH
+postMeetingsSearch:
+  handler: src/modules/meeting/handler.postMeetingsSearchHandler
+  events:
+    - http:
+        path: meetings/search
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsMeetingId:
+  handler: src/modules/meeting/handler.getMeetingByIdHandler
+  events:
+    - http:
+        path: meetings/{meetingId}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdHandler
+  events:
+    - http:
+        path: meetings/{meetingID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsEmailActivityById:
+  handler: src/modules/meeting/handler.getMeetingEmailActivityByIdHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/emailActivity
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsEmailActivityById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdEmailactivityHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/emailActivity
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingsEmailActivityById:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdEmailactivityHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/emailActivity
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteMeetingsEmailActivityById:
+  handler: src/modules/meeting/handler.deleteMeetingsMeetingIdEmailactivityHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/emailActivity
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsStagesById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdStagesHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/stages
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingStagesById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdStagesHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/stages
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingsStagesById:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdStagesHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/stages
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsStagesLabelById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdStagesLabelHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/stages/{label}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsStagesLabelById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdStagesLabelHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/stages/{label}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsCallStatisticsById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdCallstatisticsHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/callStatistics
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsCallStatisticsCalc:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdCallstatisticsCalculateHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/callStatistics/calculate
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsCreditById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdMeetingcreditHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/meetingCredit
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingsCreditById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdMeetingcreditHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/meetingCredit
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingCreditById:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdMeetingcreditHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/meetingCredit
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteMeetingCreditById:
+  handler: src/modules/meeting/handler.deleteMeetingsMeetingIdMeetingcreditHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/meetingCredit
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingsCallStatisticsLogById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdCallstatisticsLogHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/callStatistics/log
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingsCallStatisticsLogByI:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdCallstatisticsLogHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/callStatistics/log
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingFouceStatusById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdFoucestatusStatusHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/fouceStatus/{status}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingFeedbackById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdFeedbackHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/feedback
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patchMeetingFeedbackById:
+  handler: src/modules/meeting/handler.patchMeetingsMeetingIdFeedbackHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/feedback
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingFeedbackById:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdFeedbackHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/feedback
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeetingScheduledTimeslotsById:
+  handler: src/modules/meeting/handler.getMeetingsMeetingIdScheduledtimeslotsHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/scheduledTimeslots
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeetingScheduledTimeslotsById:
+  handler: src/modules/meeting/handler.postMeetingsMeetingIdScheduledtimeslotsHandler
+  events:
+    - http:
+        path: meetings/{meetingID}/scheduledTimeslots
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

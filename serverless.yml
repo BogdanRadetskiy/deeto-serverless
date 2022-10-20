@@ -1,0 +1,182 @@
+service: deeto
+
+custom:
+  defaultStage: dev
+  environment: ${file(./env.yml):${self:provider.stage}, file(./env.yml):default}
+  splitStacks:
+    nestedStackCount: 20 # Controls the number of created nested stacks
+    perFunction: false
+    perType: false
+    perGroupFunction: true
+  stage: ${opt:stage, self:provider.stage}
+  domains:
+    ci: ${{ env.DEPLOYMENT_NAME }}-dev.deeto.ai
+    dev: dev.deeto.ai
+  customDomain:
+    basePath: 'v1'
+    domainName: ${self:custom.domains.${self:custom.stage}}
+    stage: '${self:custom.stage}'
+    createRoute53Record: true
+  paths: # paths to source modules
+    shared: ./src/shared
+    signedUrlS3: ./src/modules/signedUrlS3
+    vendor: ./src/modules/vendor
+    vendorContact: ./src/modules/vendorContact
+    opportunity: ./src/modules/opportunity
+    meeting: ./src/modules/meeting
+    guiSettings: ./src/modules/guiSettings
+    authenticatedUser: ./src/modules/authenticatedUser
+    notification: ./src/modules/notification
+    account: ./src/modules/account
+    accountContact: ./src/modules/accountContact
+    recommendedReference: ./src/modules/recommendedReference
+    auth: ./src/modules/auth
+    cognito: ./src/modules/cognito
+    email: ./src/modules/email
+    magicLink: ./src/modules/magicLink
+    callLog: ./src/modules/callLog
+    emailActivity: ./src/modules/emailActivity
+    infoTab: ./src/modules/infoTab
+    me: ./src/modules/me
+    meetingStage: ./src/modules/meetingStage
+    redemption: ./src/modules/redemption
+    reference: ./src/modules/reference
+    scheduledTimeslot: ./src/modules/scheduledTimeslot
+
+  variables:
+    userPoolName: deetoUserPool
+  esbuild:
+    external:
+      - 'pg'
+    packager: yarn
+    bundle: true
+    minify: false
+
+provider:
+  stage: ${opt:stage, self:custom.defaultStage}
+  name: aws
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: 'cognito-idp:AdminGetUser'
+          Resource: '*'
+        - Effect: Allow
+          Action:
+            - cognito-idp:AdminInitiateAuth
+            - cognito-idp:AdminCreateUser
+            - cognito-idp:AdminSetUserPassword
+          Resource: '*'
+        - Effect: Allow
+          Action:
+            - 's3:*'
+          Resource:
+            - 'arn:aws:s3:::deeto-images/*'
+  runtime: nodejs16.x
+  endpointType: REGIONAL
+  environment:
+    POSTGRES_USER: ${self:custom.environment.POSTGRES_USER}
+    POSTGRES_NAME: ${self:custom.environment.POSTGRES_NAME}
+    POSTGRES_PASSWORD: ${self:custom.environment.POSTGRES_PASSWORD}
+    POSTGRES_HOST: ${self:custom.environment.POSTGRES_HOST}
+    SES_FROM_ADDRESS: ${self:custom.environment.SES_FROM_ADDRESS}
+    SENDGRID_API_KEY: ${self:custom.environment.SENDGRID_API_KEY}
+    SENDGRID_FROM: ${self:custom.environment.SENDGRID_FROM}
+    CLIENT_ADDR: ${self:custom.environment.CLIENT_ADDR}
+    REGION: ${self:custom.environment.REGION}
+    S3_PHOTOS_BUCKET: ${self:custom.environment.S3_PHOTOS_BUCKET}
+    ZOOM_CLIENT_ID: ${self:custom.environment.ZOOM_CLIENT_ID}
+    ZOOM_CLIENT_SECRET: ${self:custom.environment.ZOOM_CLIENT_SECRET}
+    ZOOM_ROOT_USER: ${self:custom.environment.ZOOM_ROOT_USER}
+    NODE_ENV: dev
+    USER_POOL_ID: { Ref: UserPool }
+    CLIENT_ID: { Ref: UserClient }
+    APP_DOMAIN: ${param:domain}
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UsernameAttributes: ['phone_number', 'email']
+        UserPoolName: ${self:custom.variables.userPoolName}
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 8
+        AutoVerifiedAttributes: ['email']
+
+    UserClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: ${self:custom.variables.userPoolName}-client
+        GenerateSecret: false
+        UserPoolId: { Ref: UserPool }
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - 'ADMIN_NO_SRP_AUTH'
+
+plugins:
+  - serverless-step-functions
+  - serverless-esbuild
+  - serverless-offline
+  - serverless-prune-plugin
+  - serverless-domain-manager
+  - serverless-plugin-split-stacks
+
+package:
+  individually: true
+
+params:
+  prod:
+    domain: deeto.ai
+  dev:
+    domain: dev2.deeto.ai
+
+functions: # paths to defined functions {src/{moduleName}/{moduleName}.functions.yml}
+  - ${file(${self:custom.paths.cognito}/cognito.functions.yml)} # setup cognito user pool
+  - ${file(${self:custom.paths.authenticatedUser}/authenticatedUser.functions.yml)}
+  - ${file(${self:custom.paths.vendor}/vendor.functions.yml)}
+  - ${file(${self:custom.paths.recommendedReference}/recommendedReference.functions.yml)}
+  - ${file(${self:custom.paths.vendor}/stateMachines/grantVendor/grantVendor.functions.yml)}
+  - ${file(${self:custom.paths.email}/email.functions.yml)}
+  - ${file(${self:custom.paths.auth}/stateMachines/registerPasswordless/registerPasswordless.functions.yml)}
+  - ${file(${self:custom.paths.auth}/stateMachines/useLink/useLink.functions.yml)}
+  - ${file(${self:custom.paths.auth}/stateMachines/loginPasswordless/loginPasswordless.functions.yml)}
+  - ${file(${self:custom.paths.magicLink}/magicLink.functions.yml)}
+  - ${file(${self:custom.paths.meeting}/meeting.functions.yml)}
+  - ${file(${self:custom.paths.opportunity}/opportunity.functions.yml)}
+  - ${file(${self:custom.paths.account}/account.functions.yml)}
+  - ${file(${self:custom.paths.accountContact}/accountContact.functions.yml)}
+  - ${file(${self:custom.paths.vendorContact}/vendorContact.functions.yml)}
+  - ${file(${self:custom.paths.shared}/lambdas/shared.functions.yml)}
+  - ${file(${self:custom.paths.callLog}/callLog.functions.yml)}
+  - ${file(${self:custom.paths.emailActivity}/emailActivity.functions.yml)}
+  - ${file(${self:custom.paths.infoTab}/infoTab.functions.yml)}
+  - ${file(${self:custom.paths.me}/me.functions.yml)}
+  - ${file(${self:custom.paths.meetingStage}/meetingStage.functions.yml)}
+  - ${file(${self:custom.paths.redemption}/redemption.functions.yml)}
+  - ${file(${self:custom.paths.reference}/reference.functions.yml)}
+  - ${file(${self:custom.paths.scheduledTimeslot}/scheduledTimeslot.functions.yml)}
+  - ${file(${self:custom.paths.signedUrlS3}/signedUrlS3.functions.yml)}
+
+stepFunctions: # paths to defined stateMachines {src/{moduleName}/stateMachines/machineName/{machineName}.stateMachine.yml}
+  stateMachines:
+    registerPasswordless: ${file(${self:custom.paths.auth}/stateMachines/registerPasswordless/registerPasswordless.stateMachine.yml)}
+    useLink: ${file(${self:custom.paths.auth}/stateMachines/useLink/useLink.stateMachine.yml)}
+    loginPasswordless: ${file(${self:custom.paths.auth}/stateMachines/loginPasswordless/loginPasswordless.stateMachine.yml)}
+    InviteReferenceMachine: ${file(${self:custom.paths.account}/stateMachines/inviteReference/inviteReference.stateMachine.yml)}
+    grantVendor: ${file(${self:custom.paths.vendor}/stateMachines/grantVendor/grantVendor.stateMachine.yml)}

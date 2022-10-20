@@ -1,0 +1,22 @@
+get-signed-url-s3:
+  handler: ${self:custom.paths.signedUrlS3}/handler.getSignedUploadUrlHandler
+  events:
+    - http:
+        path: s3/getSignedUrl
+        method: GET
+        cors:
+          origin: '*' # <-- Specify allowed origin
+          headers: # <-- Specify allowed headers
+            - authorizationToken
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+          allowCredentials: false
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

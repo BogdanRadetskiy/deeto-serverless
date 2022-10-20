@@ -1,0 +1,159 @@
+getMe:
+  handler: src/modules/me/handler.getMeHandler
+  events:
+    - http:
+        path: me
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+putMeDashboard:
+  handler: src/modules/me/handler.putMeApprovedEULA
+  events:
+    - http:
+        path: me/approveEula
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+getMeDashboard:
+  handler: src/modules/me/handler.getMeDashboardHandler
+  events:
+    - http:
+        path: me/dashboard
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeScheduling:
+  handler: src/modules/me/handler.getMeSchedulingHandler
+  events:
+    - http:
+        path: me/scheduling
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+getMeDropdownLists:
+  handler: src/modules/me/handler.getMeDropdownListsHandler
+  events:
+    - http:
+        path: me/dropdownLists
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+
+getMeDropdownListsById:
+  handler: src/modules/me/handler.getMeDropdownListByIdHandler
+  events:
+    - http:
+        path: me/dropdownLists/{dropdownID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+postMeDashboardSearch:
+  handler: src/modules/me/handler.postMeDashboardSearchHandler
+  events:
+    - http:
+        path: me/dashboard/search
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeGuiSettings:
+  handler: src/modules/me/handler.getMeGuiSettingsHandler
+  events:
+    - http:
+        path: me/guiSettings
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeStatisticsDashboards:
+  handler: src/modules/me/handler.getMeStatisticsDashboardsHandler
+  events:
+    - http:
+        path: me/statisticsDashboards
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeNotificationsById:
+  handler: src/modules/me/handler.getMeNotificationsHandler
+  events:
+    - http:
+        path: me/notifications
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeNotifications:
+  handler: src/modules/me/handler.getMeNotificationByIdHandler
+  events:
+    - http:
+        path: me/notifications/{notificationID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+deleteMeNotifications:
+  handler: src/modules/me/handler.deleteMeNotificationsNotificationIdHandler
+  events:
+    - http:
+        path: me/notifications/{notificationID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+getMeNotificationsMarkAsRead:
+  handler: src/modules/me/handler.getMeNotificationsByIdMarkAsReadHandler
+  events:
+    - http:
+        path: me/notifications/{notificationId}/markAsRead
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

@@ -1,0 +1,60 @@
+get-meetingStages-meetingStage-id:
+  handler: src/modules/meetingStage/handler.getMeetingstagesMeetingstageIdHandler
+  events:
+    - http:
+        path: meetingStages/{meetingStageID}
+        method: GET
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-meetingStages-meetingStage-id:
+  handler: src/modules/meetingStage/handler.patchMeetingstagesMeetingstageIdHandler
+  events:
+    - http:
+        path: meetingStages/{meetingStageID}
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+post-meetingStages-meetingStage-id:
+  handler: src/modules/meetingStage/handler.postMeetingstagesMeetingstageIdHandler
+  events:
+    - http:
+        path: meetingStages/{meetingStageID}
+        method: POST
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+delete-meetingStages-meetingStage-id:
+  handler: src/modules/meetingStage/handler.deleteMeetingstagesMeetingstageIdHandler
+  events:
+    - http:
+        path: meetingStages/{meetingStageID}
+        method: DELETE
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token
+patch-meetingStages-changeStatus-by-id:
+  handler: src/modules/meetingStage/handler.patchMeetingstagesMeetingstageIdChangestatusHandler
+  events:
+    - http:
+        path: meetingStages/{meetingStageID}/changeStatus
+        method: PATCH
+        cors: true
+        authorizer:
+          name: authorizer
+          resultTtlInSeconds: 0
+          identitySource: method.request.header.authorizationToken
+          type: token

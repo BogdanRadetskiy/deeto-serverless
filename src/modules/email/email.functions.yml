@@ -1,0 +1,4 @@
+send-confirmation-email:
+  handler: src/modules/email/handler.sendConfirmationEmailHandler
+send-reference-invitation-email:
+  handler: src/modules/email/handler.sendReferenceInvitationEmailHandler

@@ -1,0 +1,4 @@
+use-link-build-input-data:
+  handler: src/modules/auth/stateMachines/useLink/handler.buildInputData
+use-link-build-output-data:
+  handler: src/modules/auth/stateMachines/useLink/handler.buildOutputData
